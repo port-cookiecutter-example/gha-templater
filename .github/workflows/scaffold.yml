@@ -70,7 +70,7 @@ jobs:
           git clone https://oauth2:${{ secrets.ORG_TOKEN }}@github.com/port-cookiecutter-example/${{ fromJson(inputs.port_payload).payload.properties.name }}.git cloned_repo
           cd cloned_repo
           if [ "${{ fromJson(inputs.port_payload).payload.properties.template }}" = "Django" ]; then
-            cookiecutter gh:agconti/cookiecutter-django-rest
+            cookiecutter https://github.com/agconti/cookiecutter-django-rest.git
           fi
 
           if [ "${{ fromJson(inputs.port_payload).payload.properties.template }}" = "Flask" ]; then
@@ -82,7 +82,7 @@ jobs:
           fi
 
           if [ "${{ fromJson(inputs.port_payload).payload.properties.template }}" = "NodeJS" ]; then
-            cookiecutter gh:rrwen/cookiecutter-npm
+            cookiecutter https://github.com/rrwen/cookiecutter-npm.git
           fi
 
           if [ "${{ fromJson(inputs.port_payload).payload.properties.template }}" = "Go" ]; then
