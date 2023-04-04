@@ -65,6 +65,7 @@ jobs:
           --data "{
             \"message\": \"🚀 Scaffolding new service using CookieCutter with the template: ${{ fromJson(inputs.port_payload).payload.properties.template }} \"
           }"
+          
       - run: |
           git clone https://${{ secrets.ORG_TOKEN }}@github.com/port-cookiecutter-example/${{ fromJson(inputs.port_payload).payload.properties.name }}.git cloned_repo
           cd cloned_repo
@@ -92,6 +93,7 @@ jobs:
           git add .
           git commit -m "Initial commit after scaffolding"
           git push
+
       - run: |
           access_token=$(curl --location --request POST 'https://api.getport.io/v1/auth/access_token' \
           --header 'Content-Type: application/json' \
@@ -103,5 +105,5 @@ jobs:
           --header "Authorization: Bearer $access_token" \
           --header "Content-Type: application/json" \
           --data "{
-            \"message\": \"✅ Done scaffolding repository: ${{ fromJson(inputs.port_payload).payload.properties.name }} with template ${{}}\"
+            \"message\": \"✅ Done scaffolding repository: ${{ fromJson(inputs.port_payload).payload.properties.name }} with template ${{ fromJson(inputs.port_payload).payload.properties.template }}\"
           }"          
