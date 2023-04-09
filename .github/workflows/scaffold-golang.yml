@@ -25,6 +25,6 @@ jobs:
           organizationName: 'port-cookiecutter-example'
           repoName: ${{ fromJson(inputs.port_payload).payload.properties.name }}
           cookiecutterTemplate: https://github.com/lacion/cookiecutter-golang
-          portUserInputs: ${{ fromJson(inputs.port_payload).payload.properties }}
+          portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties) }}
           
           
