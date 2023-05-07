@@ -25,7 +25,7 @@ jobs:
           organizationName: 'port-cookiecutter-example'
           portRunId: ${{ fromJson(inputs.port_payload).context.runId }}
           repositoryName: ${{ fromJson(inputs.port_payload).payload.properties.name }}
-          cookiecutterTemplate: https://oauth2:${{ secrets.ORG_TOKEN }}@github.com/port-cookiecutter-example/golang
+          cookiecutterTemplate: https://github.com/cookiecutter/cookiecutter-django
           portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties) }}
           
           
