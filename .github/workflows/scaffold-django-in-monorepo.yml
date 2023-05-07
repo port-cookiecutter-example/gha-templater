@@ -1,0 +1,32 @@
+on:
+  workflow_dispatch:
+    inputs:
+      port_payload:
+        required: true
+        description: "Port's payload, including details for who triggered the action and general context (blueprint, run id, etc...)"
+        type: string
+    secrets: 
+      ORG_TOKEN: 
+        required: true
+      PORT_CLIENT_ID:
+        required: true
+      PORT_CLIENT_SECRET:
+        required: true
+jobs: 
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: port-labs/cookiecutter-gha@v1
+        with:
+          portClientId: ${{ secrets.PORT_CLIENT_ID }}
+          portCLientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          token: ${{ secrets.ORG_TOKEN }}
+          blueprintIdentifier: 'microservice'
+          organizationName: 'port-cookiecutter-example'
+          portRunId: ${{ fromJson(inputs.port_payload).context.runId }}
+          repositoryName: ${{ fromJson(inputs.port_payload).payload.properties.name }}
+          cookiecutterTemplate: https://github.com/cookiecutter/cookiecutter-django
+          portUserInputs: ${{ toJson(fromJson(inputs.port_payload).payload.properties) }}
+          monorepoUrl: https://oauth2:${{ secrets.ORG_TOKEN }}@github.com/port-cookiecutter-example/monorepo
+          scaffoldDirectory: apps/
+          
